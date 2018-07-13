@@ -22,7 +22,7 @@ project LegoCity is
    for Source_Dirs use ("src", "src/polyorb/**");
 
    package Dsa is
-      for Configuration_File use "src\LegoCity.cfg";
+      for Configuration_File use "src/LegoCity.cfg";
    end Dsa;
 
 end LegoCity;
