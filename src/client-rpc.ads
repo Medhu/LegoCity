@@ -25,6 +25,10 @@ package Client.RPC is
    procedure Stop;
 
    procedure Light
-     (P_Light_Id     : in Positive;
+     (P_Light_Id     : in Server.Type_Light_Id;
       P_Light_Status : in Server.Type_Light_Status);
+
+   function Button
+     (P_Button_Id : in Server.Type_Button_Id) return Server.Type_Button_Status;
+
 end Client.RPC;

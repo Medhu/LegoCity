@@ -74,7 +74,7 @@ package body Server.ServerRAPI is
    end Stop;
 
    procedure Light
-     (P_Light_Id     : in Natural;
+     (P_Light_Id     : in Type_Light_Id;
       P_Light_Status : in Type_Light_Status)
    is
       use Server;
@@ -93,5 +93,29 @@ package body Server.ServerRAPI is
          Text_IO.Put_Line ("Server.ServerRAPI.Light - exit");
       end if;
    end Light;
+
+   function Button
+     (P_Button_Id : in Type_Button_Id) return Type_Button_Status
+   is
+      Ret : Type_Button_Status;
+
+      use Server;
+   begin
+      if Verbose then
+         Text_IO.Put_Line ("Server.ServerRAPI.Button - enter");
+      end if;
+
+      if Server.Game_Engine = null then
+         raise Game_Engine_Doesnt_Exists;
+      else
+         Server.Game_Engine.Entry_Button (P_Button_Id, Ret);
+      end if;
+
+      if Verbose then
+         Text_IO.Put_Line ("Server.ServerRAPI.Button - exit");
+      end if;
+
+      return Ret;
+   end Button;
 
 end Server.ServerRAPI;

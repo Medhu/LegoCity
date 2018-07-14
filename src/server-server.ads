@@ -25,8 +25,12 @@ package Server.Server is
       entry Entry_Start;
 
       entry Entry_Light
-        (P_Light_Id     : in Natural;
+        (P_Light_Id     : in Type_Light_Id;
          P_Light_Status : in Type_Light_Status);
+
+      entry Entry_Button
+        (P_Button_Id     : in     Type_Button_Id;
+         P_Button_Status :    out Type_Button_Status);
 
       entry Entry_Stop;
    end Type_Game_Engine;

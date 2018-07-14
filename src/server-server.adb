@@ -24,12 +24,19 @@ package body Server.Server is
 
    Verbose : constant Boolean := True;
 
-   type Type_Light_List is array (1 .. 5) of Type_Light_Status;
+   type Type_Light_List is
+     array (Type_Light_Id range 1 .. 5) of Type_Light_Status;
+   type Type_Button_List is
+     array (Type_Button_Id range 1 .. 5) of Type_Button_Status;
+
    task body Type_Game_Engine is
 
       New_All_Lights,
       Prev_All_Lights : Type_Light_List :=
         (others => Light_Off);
+
+      New_All_Buttons : Type_Button_List := (others => Button_Off);
+
       A_File : Text_IO.File_Type;
 
       Run : Boolean := True;
@@ -50,10 +57,17 @@ package body Server.Server is
             end Entry_Stop;
          or
             accept Entry_Light
-              (P_Light_Id     : in Natural;
+              (P_Light_Id     : in Type_Light_Id;
                P_Light_Status : in Type_Light_Status) do
                New_All_Lights (P_Light_Id) := P_Light_Status;
             end Entry_Light;
+         or
+            accept Entry_Button
+              (P_Button_Id     : in     Type_Button_Id;
+               P_Button_Status :    out Type_Button_Status) do
+               P_Button_Status               := New_All_Buttons (P_Button_Id);
+               New_All_Buttons (P_Button_Id) := Button_Off;
+            end Entry_Button;
          else
             null;
          end select;
@@ -69,6 +83,17 @@ package body Server.Server is
                   " to " &
                   New_All_Lights (Trav_Light)'Img);
                Prev_All_Lights (Trav_Light) := New_All_Lights (Trav_Light);
+            end if;
+         end loop;
+
+         for Trav_Button in New_All_Buttons'First .. New_All_Buttons'Last loop
+            if New_All_Buttons (Trav_Button) = Button_On then
+               Text_IO.Put_Line
+                 (A_File,
+                  "Button " &
+                  Trav_Button'Img &
+                  " status " &
+                  New_All_Buttons (Trav_Button)'Img);
             end if;
 
          end loop;
@@ -86,7 +111,7 @@ package body Server.Server is
       end if;
 
       Text_IO.Put_Line
-        ("LSS Server - v0.0.1 Copyright (C) 2018 Frank J Jorgensen");
+        ("LegoCity Server - v0.0.1 Copyright (C) 2018 Frank J Jorgensen");
       Text_IO.Put_Line
         ("This program comes with ABSOLUTELY NO WARRANTY; for details see attached gpl.txt");
       Text_IO.Put_Line ("or <http://www.gnu.org/licenses/>");
