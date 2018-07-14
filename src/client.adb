@@ -60,13 +60,13 @@ package body Client is
       Ret : Server.Type_Button_Status;
    begin
       if Verbose then
-         Text_IO.Put_Line ("Client.Light - enter");
+         Text_IO.Put_Line ("Client.Button - enter");
       end if;
 
       Ret := Client.RPC.Button (P_Button_Id);
 
       if Verbose then
-         Text_IO.Put_Line ("Client.Light - exit");
+         Text_IO.Put_Line ("Client.Button - exit");
       end if;
 
       return Ret;
