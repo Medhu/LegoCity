@@ -16,7 +16,7 @@
 --      You should have received a copy of the GNU General Public License
 --      along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
-
+with Server;
 with Server.Server;
 
 package Server.ServerAPI is
@@ -27,6 +27,8 @@ package Server.ServerAPI is
    procedure Stop;
 
    procedure Light
-     (P_Light_Id     : in Natural;
+     (P_Light_Id     : in Type_Light_Id;
       P_Light_Status : in Type_Light_Status);
+
+   function Button (P_Button_Id : in Type_Button_Id) return Type_Button_Status;
 end Server.ServerAPI;

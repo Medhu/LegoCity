@@ -19,7 +19,11 @@
 
 package Server is
    pragma Pure;
+   type Type_Light_Id is new Natural;
+   type Type_Button_Id is new Natural;
+
    type Type_Light_Status is (Light_On, Light_Off);
+   type Type_Button_Status is (Button_On, Button_Off);
 
    Game_Engine_Exists : exception;
    Game_Engine_Doesnt_Exists : exception;

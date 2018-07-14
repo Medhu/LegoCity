@@ -36,7 +36,7 @@ package body Client is
    end Init;
 
    procedure Light
-     (P_Client_Id    : in Positive;
+     (P_Light_Id     : in Server.Type_Light_Id;
       P_Light_Status : in Server.Type_Light_Status)
    is
 
@@ -45,12 +45,31 @@ package body Client is
          Text_IO.Put_Line ("Client.Light - enter");
       end if;
 
-      Client.RPC.Light (P_Client_Id, P_Light_Status);
+      Client.RPC.Light (P_Light_Id, P_Light_Status);
 
       if Verbose then
          Text_IO.Put_Line ("Client.Light - exit");
       end if;
 
    end Light;
+
+   function Button
+     (P_Button_Id : in Server.Type_Button_Id) return Server.Type_Button_Status
+   is
+
+      Ret : Server.Type_Button_Status;
+   begin
+      if Verbose then
+         Text_IO.Put_Line ("Client.Light - enter");
+      end if;
+
+      Ret := Client.RPC.Button (P_Button_Id);
+
+      if Verbose then
+         Text_IO.Put_Line ("Client.Light - exit");
+      end if;
+
+      return Ret;
+   end Button;
 
 end Client;

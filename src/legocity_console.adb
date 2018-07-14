@@ -21,9 +21,11 @@ with Client.Server_Adm;
 with Server;
 
 procedure legocity_console is
+   A_Button : Server.Type_Button_Status;
 begin
    Client.Server_Adm.Init;
 
    Client.Light (1, Server.Light_On);
+   A_Button := Client.Button (2);
 
 end legocity_console;

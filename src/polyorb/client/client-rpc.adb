@@ -85,7 +85,7 @@ package body Client.RPC is
    end Stop;
 
    procedure Light
-     (P_Light_Id     : in Positive;
+     (P_Light_Id     : in Server.Type_Light_Id;
       P_Light_Status : in Server.Type_Light_Status)
    is
    begin
@@ -100,5 +100,24 @@ package body Client.RPC is
       end if;
 
    end Light;
+
+   function Button
+     (P_Button_Id : in Server.Type_Button_Id) return Server.Type_Button_Status
+   is
+
+      Ret : Server.Type_Button_Status;
+   begin
+      if Verbose then
+         Text_IO.Put_Line ("Client.RPC.Button - enter");
+      end if;
+
+      Ret := Server.ServerRCI.Button (P_Button_Id);
+
+      if Verbose then
+         Text_IO.Put_Line ("Client.RPC.Button - exit");
+      end if;
+
+      return Ret;
+   end Button;
 
 end Client.RPC;
